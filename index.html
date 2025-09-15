@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ubiquiti Design & Quote</title>
+<style>
+  :root { --bg:#0f1221; --card:#171a2b; --ink:#e7e9f3; --muted:#aab0c0; --accent:#7bb1ff; --line:#272a3b; }
+  * { box-sizing: border-box; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+  body { margin:0; background:var(--bg); color:var(--ink); }
+  header { padding:24px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:12px; }
+  header h1 { margin:0; font-size:20px; font-weight:700; letter-spacing:.2px; }
+  main { display:grid; grid-template-columns:1.2fr .8fr; gap:20px; padding:20px; max-width:1200px; margin:0 auto; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; }
+  .section-title { font-size:14px; text-transform:uppercase; color:var(--muted); letter-spacing:.12em; margin:10px 0 16px; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+  .row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px; }
+  label { font-size:13px; color:var(--muted); display:block; margin-bottom:6px; }
+  input[type="text"], input[type="tel"], input[type="number"], select {
+    width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:#0c0f1f; color:var(--ink);
+  }
+  input[type="checkbox"], input[type="radio"] { transform: scale(1.15); margin-right:8px; }
+  .inline { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .pill { padding:8px 12px; border:1px solid var(--line); border-radius:999px; cursor:pointer; user-select:none; }
+  .pill.active { border-color:var(--accent); color:var(--accent); }
+  .help { font-size:12px; color:var(--muted); }
+  .summary h2 { margin:0 0 8px; font-size:18px; }
+  .summary .kvs { display:grid; grid-template-columns:1fr auto; gap:8px 12px; font-size:14px; margin-top:8px; }
+  hr { border:none; border-top:1px solid var(--line); margin:16px 0; }
+  .btnbar { display:flex; gap:10px; justify-content:flex-end; }
+  button {
+    padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+    background:#0c0f1f; color:var(--ink); cursor:pointer; font-weight:600;
+  }
+  button.primary { background:var(--accent); color:#081225; border-color:transparent; }
+  .hidden { display:none !important; }
+  .error { color:#ff8a8a; font-size:12px; margin-top:4px; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:12px; }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="#7bb1ff" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l9 5v10l-9 5-9-5V7l9-5zm0 2.2L5 7.4v9.2l7 4.2 7-4.2V7.4l-7-3.2z"/></svg>
+  <h1>Ubiquiti Design & Quote</h1>
+</header>
+
+<main>
+  <!-- LEFT: FORM -->
+  <section class="card">
+    <div class="section-title">Project Type</div>
+    <div class="inline" id="typeToggle">
+      <span class="pill active" data-type="commercial">Commercial</span>
+      <span class="pill" data-type="residential">Residential</span>
+    </div>
+
+    <!-- COMMERCIAL FORM -->
+    <div id="commercialForm">
+      <div class="section-title">Contact & Company</div>
+      <div class="row">
+        <div>
+          <label for="cName">Full Name</label>
+          <input id="cName" type="text" placeholder="Jane Doe" autocomplete="name" maxlength="120">
+        </div>
+        <div>
+          <label for="cPhone">Phone</label>
+          <input id="cPhone" type="tel" placeholder="(555) 555-5555" autocomplete="tel" maxlength="40">
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="cCompany">Company</label>
+          <input id="cCompany" type="text" placeholder="Acme LLC" maxlength="120">
+        </div>
+        <div>
+          <label for="cAddress">Address</label>
+          <input id="cAddress" type="text" placeholder="123 Main St, City, ST" maxlength="200">
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="cSize">Company Size (people)</label>
+          <input id="cSize" type="number" min="1" step="1" placeholder="50">
+        </div>
+        <div>
+          <label for="cFloors">Floors</label>
+          <input id="cFloors" type="number" min="1" step="1" value="1">
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="cSqft">Approx. Square Footage (total)</label>
+          <input id="cSqft" type="number" min="100" step="50" placeholder="15000">
+        </div>
+        <div>
+          <label class="help">Commercial uses 19″ rack gear; a UDM Pro is always included.</label>
+        </div>
+      </div>
+
+      <div class="section-title">Wi-Fi</div>
+      <div class="inline">
+        <label><input type="checkbox" id="cWantWifi"> Include Wi-Fi</label>
+      </div>
+      <div id="cWifiBlock" class="hidden">
+        <div class="row">
+          <div>
+            <label for="cMount">AP Mount Preference</label>
+            <select id="cMount">
+              <option value="ceiling" selected>Ceiling</option>
+              <option value="wall">Wall</option>
+            </select>
+          </div>
+          <div>
+            <label>Estimated APs (auto)</label>
+            <input id="cApEstimate" type="number" min="1" step="1" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Wired Network</div>
+      <div class="row">
+        <div>
+          <label><input type="checkbox" id="cNeedWired"> Hard-wired jacks for stationary devices</label>
+        </div>
+        <div id="cWiredCountWrap" class="hidden">
+          <label for="cWiredCount">How many jacks?</label>
+          <input id="cWiredCount" type="number" min="1" step="1" value="1">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label><input type="checkbox" id="cVoip"> Interested in VoIP service</label>
+        </div>
+        <div>
+          <label><input type="checkbox" id="cCameras"> Interested in cameras</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESIDENTIAL FORM -->
+    <div id="residentialForm" class="hidden">
+      <div class="section-title">Home Tier</div>
+      <div class="inline" id="homeTier">
+        <span class="pill active" data-tier="prosumer">Prosumer</span>
+        <span class="pill" data-tier="business">Business grade</span>
+      </div>
+
+      <div class="section-title">Home Details</div>
+      <div class="row">
+        <div>
+          <label for="rFloors">Floors</label>
+          <input id="rFloors" type="number" min="1" step="1" value="2">
+        </div>
+        <div>
+          <label for="rSqft">Approx. Square Footage (total)</label>
+          <input id="rSqft" type="number" min="500" step="50" value="2600">
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label><input type="checkbox" id="rOutdoor"> Need outdoor Wi-Fi coverage</label>
+        </div>
+        <div>
+          <label>APs (auto)</label>
+          <input id="rApEstimate" type="number" min="1" step="1" readonly>
+        </div>
+      </div>
+
+      <div class="section-title">Wired Devices</div>
+      <div class="row">
+        <div>
+          <label><input type="checkbox" id="rNeedWired"> Any hard-wired devices?</label>
+        </div>
+        <div id="rWiredCountWrap" class="hidden">
+          <label for="rWiredCount">How many?</label>
+          <input id="rWiredCount" type="number" min="1" step="1" value="2">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label><input type="checkbox" id="rVoip"> Interested in VoIP service</label>
+        </div>
+        <div>
+          <label><input type="checkbox" id="rCameras"> Interested in cameras</label>
+        </div>
+      </div>
+
+      <div class="help" id="homeTierNote">
+        Prosumer: Recommend the home Dream Machine. If APs exceed built-in PoE capacity, we’ll add a compact PoE desk switch.
+      </div>
+    </div>
+
+    <hr>
+    <div class="btnbar">
+      <button id="resetBtn">Reset</button>
+      <button class="primary" id="saveBtn">Save &amp; Get Quote JSON</button>
+    </div>
+    <div id="saveError" class="error hidden"></div>
+  </section>
+
+  <!-- RIGHT: SUMMARY -->
+  <aside class="card summary">
+    <div class="section-title">Recommendations</div>
+    <h2 id="summaryTitle">Commercial Quote</h2>
+    <div class="kvs">
+      <div>Router / Controller</div><div id="sumRouter" class="mono">UDM Pro (rack)</div>
+      <div>Wi-Fi</div><div id="sumWifi" class="mono">Not requested</div>
+      <div>AP Mount</div><div id="sumMount" class="mono">—</div>
+      <div>Estimated APs</div><div id="sumAps" class="mono">0</div>
+      <div>PoE / Switch</div><div id="sumSwitch" class="mono">—</div>
+      <div>Wired Ports (est.)</div><div id="sumWired" class="mono">0</div>
+      <div>Tier</div><div id="sumTier" class="mono">—</div>
+      <div>Cameras</div><div id="sumCams" class="mono">No</div>
+      <div>VoIP</div><div id="sumVoip" class="mono">No</div>
+    </div>
+    <hr>
+    <div class="section-title">Payload Preview</div>
+    <pre id="payload" class="mono" style="white-space:pre-wrap; max-height:320px; overflow:auto;"></pre>
+  </aside>
+</main>
+
+<script>
+/* --------------------------
+   Rules / constants
+--------------------------- */
+const RULES = {
+  commercial: {
+    apCoverageCeilingSqft: 1500, // per floor
+    apCoverageWallSqft: 1000,    // per floor
+    minApPerFloor: 1,
+    rackSwitches: [
+      { name: "USW Enterprise 8 PoE (rack)", poePorts: 8,  totalPorts: 8 },
+      { name: "USW-16-PoE (rack)",           poePorts: 8,  totalPorts: 16 },
+      { name: "USW-24-PoE (rack)",           poePorts: 16, totalPorts: 24 },
+      { name: "USW-48-PoE (rack)",           poePorts: 32, totalPorts: 48 }
+    ],
+    router: "UDM Pro (rack) – always included"
+  },
+  residential: {
+    apCoverageSqft: 1200, // per floor (U7 Lite assumptions)
+    extraOutdoorAps: 1,
+    homePoEPorts: 2, // assumed built-in PoE ports on the home Dream Machine
+    deskSwitches: [
+      { name: "USW Flex Mini (desk, non-PoE)", poePorts: 0, totalPorts: 5 },
+      { name: "USW Lite 8 (desk, non-PoE)",   poePorts: 0, totalPorts: 8 },
+      { name: "USW Lite 8 PoE (desk)",        poePorts: 4, totalPorts: 8 }
+    ],
+    businessTierRouter: "UDM Pro (rack)"
+  }
+};
+
+const ceilDiv = (a, b) => Math.ceil(a / b);
+const clampMin = (val, min) => Math.max(val, min);
+
+/* --------------------------
+   DOM refs
+--------------------------- */
+const typeToggle = document.getElementById('typeToggle');
+const commercialForm = document.getElementById('commercialForm');
+const residentialForm = document.getElementById('residentialForm');
+const summaryTitle = document.getElementById('summaryTitle');
+const sumRouter = document.getElementById('sumRouter');
+const sumWifi = document.getElementById('sumWifi');
+const sumMount = document.getElementById('sumMount');
+const sumAps = document.getElementById('sumAps');
+const sumSwitch = document.getElementById('sumSwitch');
+const sumWired = document.getElementById('sumWired');
+const sumTier = document.getElementById('sumTier');
+const sumCams = document.getElementById('sumCams');
+const sumVoip = document.getElementById('sumVoip');
+const payloadPre = document.getElementById('payload');
+const saveBtn = document.getElementById('saveBtn');
+const resetBtn = document.getElementById('resetBtn');
+const saveError = document.getElementById('saveError');
+
+/* Commercial fields */
+const cName = document.getElementById('cName');
+const cPhone = document.getElementById('cPhone');
+const cCompany = document.getElementById('cCompany');
+const cAddress = document.getElementById('cAddress');
+const cSize = document.getElementById('cSize');
+const cFloors = document.getElementById('cFloors');
+const cSqft = document.getElementById('cSqft');
+const cWantWifi = document.getElementById('cWantWifi');
+const cWifiBlock = document.getElementById('cWifiBlock');
+const cMount = document.getElementById('cMount');
+const cApEstimate = document.getElementById('cApEstimate');
+const cNeedWired = document.getElementById('cNeedWired');
+const cWiredCountWrap = document.getElementById('cWiredCountWrap');
+const cWiredCount = document.getElementById('cWiredCount');
+const cVoip = document.getElementById('cVoip');
+const cCameras = document.getElementById('cCameras');
+
+/* Residential fields */
+const homeTier = document.getElementById('homeTier');
+const rFloors = document.getElementById('rFloors');
+const rSqft = document.getElementById('rSqft');
+const rOutdoor = document.getElementById('rOutdoor');
+const rApEstimate = document.getElementById('rApEstimate');
+const rNeedWired = document.getElementById('rNeedWired');
+const rWiredCountWrap = document.getElementById('rWiredCountWrap');
+const rWiredCount = document.getElementById('rWiredCount');
+const rVoip = document.getElementById('rVoip');
+const rCameras = document.getElementById('rCameras');
+const homeTierNote = document.getElementById('homeTierNote');
+
+/* --------------------------
+   State
+--------------------------- */
+let state = {
+  type: "commercial",     // "commercial" | "residential"
+  tier: "prosumer",       // for residential: "prosumer" | "business"
+};
+
+/* --------------------------
+   Estimation Logic
+--------------------------- */
+function estimateCommercialAps(totalSqft, floors, mount) {
+  if (!totalSqft || !floors) return 0;
+  const perFloorSqft = totalSqft / floors;
+  const base = mount === 'wall' ? RULES.commercial.apCoverageWallSqft
+                                : RULES.commercial.apCoverageCeilingSqft;
+  const perFloorAps = clampMin(ceilDiv(perFloorSqft, base), RULES.commercial.minApPerFloor);
+  return perFloorAps * floors;
+}
+
+function estimateResidentialAps(totalSqft, floors, outdoor) {
+  if (!totalSqft || !floors) return 0;
+  const perFloorSqft = totalSqft / floors;
+  const perFloorAps = clampMin(ceilDiv(perFloorSqft, RULES.residential.apCoverageSqft), 1);
+  let aps = perFloorAps * floors;
+  if (outdoor) aps += RULES.residential.extraOutdoorAps;
+  return aps;
+}
+
+function pickRackPoESwitch(requiredPoEPorts, totalPortsNeeded) {
+  const opts = RULES.commercial.rackSwitches;
+  for (const s of opts) {
+    if (s.poePorts >= requiredPoEPorts && s.totalPorts >= totalPortsNeeded) {
+      return s.name;
+    }
+  }
+  const biggest = opts[opts.length - 1];
+  return biggest.name + " (or multiple switches)";
+}
+
+function pickDeskSwitch(requiredExtraPoE, totalPortsNeeded) {
+  // Prefer PoE models if PoE is required
+  const sorted = RULES.residential.deskSwitches.slice().sort((a,b)=>{
+    // Prefer PoE when needed; otherwise smallest that fits
+    const aScore = (requiredExtraPoE > 0 ? (a.poePorts > 0 ? 0 : 1) : 0) + a.totalPorts;
+    const bScore = (requiredExtraPoE > 0 ? (b.poePorts > 0 ? 0 : 1) : 0) + b.totalPorts;
+    return aScore - bScore;
+  });
+  for (const s of sorted) {
+    if (s.poePorts >= requiredExtraPoE && s.totalPorts >= totalPortsNeeded) {
+      return s.name;
+    }
+  }
+  const last = sorted[sorted.length - 1];
+  return last.name + " (or multiple units)";
+}
+
+/* --------------------------
+   Rendering & Wiring
+--------------------------- */
+function syncView() {
+  // Top pills
+  [...typeToggle.querySelectorAll('.pill')].forEach(p => {
+    p.classList.toggle('active', p.dataset.type === state.type);
+  });
+
+  const isCommercial = state.type === 'commercial';
+  commercialForm.classList.toggle('hidden', !isCommercial);
+  residentialForm.classList.toggle('hidden', isCommercial);
+  summaryTitle.textContent = isCommercial ? "Commercial Quote" : "Residential Quote";
+
+  let rec = {
+    router: "",
+    wifi: "Not requested",
+    apMount: "—",
+    apCount: 0,
+    poeSwitch: "—",
+    wiredCount: 0,
+    tier: isCommercial ? "Business (19″ rack)" : (state.tier === 'prosumer' ? "Prosumer" : "Business (19″ rack)"),
+    cameras: "No",
+    voip: "No",
+    payload: {}
+  };
+
+  if (isCommercial) {
+    rec.router = RULES.commercial.router;
+
+    const needWired = cNeedWired.checked;
+    const wiredCount = needWired ? Number(cWiredCount.value || 0) : 0;
+    rec.wiredCount = wiredCount;
+
+    if (cWantWifi.checked) {
+      rec.wifi = "Yes";
+      rec.apMount = cMount.value === 'wall' ? "Wall" : "Ceiling";
+      const aps = estimateCommercialAps(Number(cSqft.value||0), Number(cFloors.value||0), cMount.value);
+      rec.apCount = aps;
+
+      // Require at least 1 PoE switch if Wi-Fi
+      const totalPortsNeeded = aps + wiredCount + 1; // uplink
+      rec.poeSwitch = pickRackPoESwitch(aps, totalPortsNeeded);
+    } else {
+      rec.wifi = "No";
+      if (wiredCount > 0) {
+        rec.poeSwitch = "USW-16 (non-PoE) or similar";
+      }
+    }
+
+    rec.cameras = cCameras.checked ? "Yes" : "No";
+    rec.voip = cVoip.checked ? "Yes" : "No";
+
+    rec.payload = {
+      type: "commercial",
+      contact: {
+        name: (cName.value||"").trim(),
+        phone: (cPhone.value||"").trim(),
+        company: (cCompany.value||"").trim(),
+        address: (cAddress.value||"").trim(),
+        companySize: Number(cSize.value || 0)
+      },
+      site: {
+        floors: Number(cFloors.value || 0),
+        sqftTotal: Number(cSqft.value || 0),
+      },
+      wants: {
+        wifi: cWantWifi.checked,
+        apMount: cWantWifi.checked ? cMount.value : null,
+        wiredJacks: rec.wiredCount,
+        cameras: cCameras.checked,
+        voip: cVoip.checked
+      },
+      recommended: {
+        router: rec.router,
+        apCount: rec.apCount,
+        poeSwitch: rec.poeSwitch,
+        totalPortsEstimate: (rec.apCount + rec.wiredCount + 1)
+      }
+    };
+
+  } else {
+    // Residential
+    [...homeTier.querySelectorAll('.pill')].forEach(p=>{
+      p.classList.toggle('active', p.dataset.tier === state.tier);
+    });
+    homeTierNote.textContent = state.tier === 'prosumer'
+      ? "Prosumer: Recommend the home Dream Machine. If APs exceed built-in PoE, we’ll add a compact PoE desk switch."
+      : "Business grade: 19″ rack gear; includes UDM Pro, similar to commercial rules.";
+
+    const floors = Number(rFloors.value||0);
+    const sqft   = Number(rSqft.value||0);
+    const outdoor= rOutdoor.checked;
+    const needW  = rNeedWired.checked;
+    const wiredCount = needW ? Number(rWiredCount.value||0) : 0;
+    rec.wiredCount = wiredCount;
+    rec.cameras = rCameras.checked ? "Yes" : "No";
+    rec.voip = rVoip.checked ? "Yes" : "No";
+
+    if (state.tier === 'prosumer') {
+      rec.router = "Home Dream Machine (e.g., UDR)";
+      const aps = estimateResidentialAps(sqft, floors, outdoor);
+      rec.apCount = aps;
+      rec.wifi = "Yes";
+      rec.apMount = "Ceiling/Wall (U7 Lite family)";
+
+      // How many PoE ports beyond DM’s built-in PoE do we need for APs?
+      const extraPoENeeded = Math.max(0, aps - RULES.residential.homePoEPorts);
+
+      // Total ports needed for a desk switch path:
+      // APs + wired devices + 1 uplink to DM.
+      const totalPortsNeeded = aps + wiredCount + 1;
+
+      if (extraPoENeeded > 0 || totalPortsNeeded > RULES.residential.homePoEPorts) {
+        rec.poeSwitch = pickDeskSwitch(extraPoENeeded, totalPortsNeeded);
+      } else {
+        rec.poeSwitch = "Use built-in ports on the Dream Machine";
+      }
+
+      rec.payload = {
+        type: "residential",
+        tier: "prosumer",
+        site: { floors, sqftTotal: sqft, outdoor },
+        wants: {
+          wifi: true,
+          wiredDevices: wiredCount,
+          cameras: rCameras.checked,
+          voip: rVoip.checked
+        },
+        recommended: {
+          router: rec.router,
+          apModelHint: "U7 (cheapest variant)",
+          apCount: aps,
+          poeSwitch: rec.poeSwitch,
+          totalPortsEstimate: totalPortsNeeded,
+          extraPoENeeded: extraPoENeeded
+        }
+      };
+
+    } else {
+      // Residential business-grade → same as commercial rules
+      rec.router = RULES.residential.businessTierRouter;
+      const aps = estimateCommercialAps(sqft, floors, "ceiling"); // default to ceiling
+      rec.apCount = aps;
+      rec.wifi = "Yes";
+      rec.apMount = "Ceiling";
+      const totalPortsNeeded = aps + wiredCount + 1;
+      rec.poeSwitch = pickRackPoESwitch(aps, totalPortsNeeded);
+
+      rec.payload = {
+        type: "residential",
+        tier: "business",
+        site: { floors, sqftTotal: sqft, outdoor },
+        wants: {
+          wifi: true,
+          wiredDevices: wiredCount,
+          cameras: rCameras.checked,
+          voip: rVoip.checked
+        },
+        recommended: {
+          router: rec.router,
+          apCount: aps,
+          poeSwitch: rec.poeSwitch,
+          totalPortsEstimate: totalPortsNeeded
+        }
+      };
+    }
+  }
+
+  // Push to summary UI
+  sumRouter.textContent = rec.router || "—";
+  sumWifi.textContent = rec.wifi;
+  sumMount.textContent = rec.apMount;
+  sumAps.textContent = rec.apCount;
+  sumSwitch.textContent = rec.poeSwitch;
+  sumWired.textContent = rec.wiredCount;
+  sumTier.textContent = rec.tier;
+  sumCams.textContent = rec.cameras;
+  sumVoip.textContent = rec.voip;
+  payloadPre.textContent = JSON.stringify(rec.payload, null, 2);
+}
+
+/* --------------------------
+   Events
+--------------------------- */
+typeToggle.addEventListener('click', (e)=>{
+  const pill = e.target.closest('.pill'); if (!pill) return;
+  state.type = pill.dataset.type;
+  syncView();
+});
+
+cWantWifi.addEventListener('change', ()=>{
+  cWifiBlock.classList.toggle('hidden', !cWantWifi.checked);
+  syncView();
+});
+
+cNeedWired.addEventListener('change', ()=>{
+  cWiredCountWrap.classList.toggle('hidden', !cNeedWired.checked);
+  syncView();
+});
+
+rNeedWired.addEventListener('change', ()=>{
+  rWiredCountWrap.classList.toggle('hidden', !rNeedWired.checked);
+  syncView();
+});
+
+[cSqft, cFloors, cMount].forEach(el => el.addEventListener('input', ()=>{
+  const aps = estimateCommercialAps(Number(cSqft.value||0), Number(cFloors.value||0), cMount.value);
+  cApEstimate.value = aps || "";
+  syncView();
+}));
+
+[rSqft, rFloors, rOutdoor].forEach(el => el.addEventListener('input', ()=>{
+  const aps = estimateResidentialAps(Number(rSqft.value||0), Number(rFloors.value||0), rOutdoor.checked);
+  rApEstimate.value = aps || "";
+  syncView();
+}));
+
+homeTier.addEventListener('click', (e)=>{
+  const pill = e.target.closest('.pill'); if (!pill) return;
+  state.tier = pill.dataset.tier;
+  syncView();
+});
+
+saveBtn.addEventListener('click', async ()=>{
+  saveError.classList.add('hidden');
+
+  // Minimal client-side validation & normalization
+  const body = (()=> {
+    try { return JSON.parse(payloadPre.textContent || "{}"); }
+    catch { return {}; }
+  })();
+
+  // POST to backend (change URL as needed)
+  try {
+    const res = await fetch('/api/quotes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error('Failed to save quote');
+    alert('Saved! (Wire this to your DB on the backend).');
+  } catch (err) {
+    saveError.textContent = "Could not save. Is your backend running on /api/quotes? (" + err.message + ")";
+    saveError.classList.remove('hidden');
+  }
+});
+
+resetBtn.addEventListener('click', ()=>{
+  document.querySelectorAll('input[type="text"], input[type="tel"], input[type="number"]').forEach(i=>i.value="");
+  document.querySelectorAll('input[type="checkbox"]').forEach(i=>i.checked=false);
+  cFloors.value = 1;
+  rFloors.value = 2;
+  rSqft.value = 2600;
+  state.type = "commercial";
+  state.tier = "prosumer";
+  cMount.value = "ceiling";
+  cWifiBlock.classList.add('hidden');
+  cWiredCountWrap.classList.add('hidden');
+  rWiredCountWrap.classList.add('hidden');
+  cApEstimate.value = "";
+  rApEstimate.value = "";
+  syncView();
+});
+
+// First render
+syncView();
+</script>
+</body>
+</html>
